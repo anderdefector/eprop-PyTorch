@@ -45,15 +45,27 @@ class SRNN(nn.Module):
     def __init__(self, n_in, n_rec, n_out, n_t, thr, tau_m, tau_o, b_o, gamma, dt, model, classif, w_init_gain, lr_layer, t_crop, visualize, visualize_light, device):    
         
         super(SRNN, self).__init__()
+        # Número de neuronas de entrada
         self.n_in     = n_in
+        # Número de neuronas en la capa oculta
         self.n_rec    = n_rec
+        # Número de neuronas de salida
         self.n_out    = n_out
+
         self.n_t      = n_t
+        # Umbral de activación
         self.thr      = thr
-        self.dt       = dt
+        # El paso en tiempo discreto = 1 ms
+        self.dt       = dt 
+        # El factor de decaimiento
+        # tau_m es la constante de tiempo de la membrana = 20 ms
         self.alpha    = np.exp(-dt/tau_m)
+        # El factor de fuga
+        # tau_o es la constante de tiempo de la membrana
         self.kappa    = np.exp(-dt/tau_o)
+        # paramtero de la pseudo derivada 0.3
         self.gamma    = gamma
+        # Sesgo de la salida
         self.b_o      = b_o
         self.model    = model
         self.classif  = classif
